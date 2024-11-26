@@ -11,7 +11,18 @@ pool:
 stages:
     - stage: Build
       displayName: Build stage
-      jobs:  
+      jobs: 
+      - deployment: VMDeploy
+        displayName: Web deploy
+        environment:
+            name:  Maquina_Linux
+            resourceType: VirtualMachine
+            tags: web # Update value for VMs to deploy to
+        strategy: 
+          runOnce:
+            deploy:
+              steps:
+              - script: echo my first deployment
       - job: Build
         displayName: Build
         steps:
