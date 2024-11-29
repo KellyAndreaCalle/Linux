@@ -30,6 +30,10 @@ stages:
               replaceExistingArchive: true
           - upload: $(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip
             artifact: WebApp
+
+  - stage: Deploy
+    displayName: Deploy stage
+    jobs:
       - deployment: VMDeploy
         displayName: Web deploy
         environment:
