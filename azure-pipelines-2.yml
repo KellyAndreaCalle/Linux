@@ -59,7 +59,7 @@ stages:
                   targetType: 'inline'
                   script: |
                     echo "Starting deployment script run"
-                    echo $(Q1w2e3r4) | sudo -S java -jar '$(Pipeline.Workspace)/WebApp/**/target/*.jar'
+                    echo $(SUDO_PASSWORD) | sudo -S java -jar '$(Pipeline.Workspace)/WebApp/**/target/*.jar'
             routeTraffic:
               steps:
               - script: echo routing traffic
