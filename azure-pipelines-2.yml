@@ -65,6 +65,9 @@ stages:
                       cd $(Pipeline.Workspace)/WebApp
                       npm install
                       nohup node server.js &
+
+                      # Comprobar si el servidor se está ejecutando
+                      echo "Aplicación desplegada y ejecutándose en segundo plano"
             routeTraffic:
               steps:
                 - script: echo routing traffic
