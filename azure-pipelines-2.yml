@@ -61,10 +61,10 @@ stages:
                       echo "Listando archivos del directorio:"
                       ls -l $(Pipeline.Workspace)/WebApp
 
-                      # Navegar al directorio de la aplicación y ejecutar el servidor
+                      # Navegar al directorio de la aplicación y ejecutar el servidor en segundo plano
                       cd $(Pipeline.Workspace)/WebApp
                       npm install
-                      node server.js
+                      nohup node server.js &
             routeTraffic:
               steps:
                 - script: echo routing traffic
