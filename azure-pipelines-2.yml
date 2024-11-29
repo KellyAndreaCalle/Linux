@@ -22,7 +22,7 @@ stages:
             preDeploy:
               steps:
               - download: current
-                artifact: drop
+                artifact: WebApp
               - script: echo initialize, cleanup, backup, apt install certs
             deploy:
               steps:
@@ -32,7 +32,7 @@ stages:
                   script: |
                     # Modify deployment script based on the app type
                     echo "Starting deployment script run"
-                    sudo java -jar '$(Pipeline.Workspace)/drop/**/target/*.jar'
+                    sudo java -jar '$(Pipeline.Workspace)/WebApp/**/target/*.jar'
             routeTraffic:
               steps:
               - script: echo routing traffic
@@ -46,7 +46,6 @@ stages:
               success:
                 steps:
                 - script: echo Notify! This is on success
-
       - job: Build
         displayName: Build
         steps:
@@ -68,7 +67,7 @@ stages:
             archiveFile: $(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip
             replaceExistingArchive: true
         - upload: $(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip
-          artifact: drop
+          artifact: WebApp
         
         
         
