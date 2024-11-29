@@ -7,7 +7,16 @@ pool:
 stages:
     - stage: Build
       displayName: Build stage
-      jobs:  
+      jobs: 
+      
+      
+      - deployment: VMDeploy
+        displayName: Web deploy
+        environment:
+          name:  Maquina_Linux
+          resourceType: VirtualMachine
+          tags: web # Update value for VMs to deploy to
+
       - job: Build
         displayName: Build
         steps:
@@ -30,3 +39,6 @@ stages:
             replaceExistingArchive: true
         - upload: $(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip
           artifact: drop
+        
+        
+        
