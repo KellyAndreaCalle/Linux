@@ -57,6 +57,10 @@ stages:
                       # Extraer el contenido del archivo .zip
                       unzip $(Pipeline.Workspace)/WebApp/*.zip -d $(Pipeline.Workspace)/WebApp
 
+                      # Listar los archivos del directorio para entender la estructura
+                      echo "Listando archivos del directorio:"
+                      ls -l $(Pipeline.Workspace)/WebApp
+
                       # Navegar al directorio de la aplicación y ejecutar el servidor
                       cd $(Pipeline.Workspace)/WebApp
                       npm install
@@ -74,4 +78,3 @@ stages:
               success:
                 steps:
                   - script: echo Notify! This is on success
-
