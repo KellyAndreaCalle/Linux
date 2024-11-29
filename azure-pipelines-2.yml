@@ -64,8 +64,6 @@ stages:
                     echo "Verifying permissions"
                     sudo chmod -R 755 $(Pipeline.Workspace)/WebApp
                     sudo chown -R $(whoami) $(Pipeline.Workspace)/WebApp
-                    echo "Listing files in the target directory"
-                    ls -lR $(Pipeline.Workspace)/WebApp/target
             deploy:
               steps:
               - task: Bash@3
@@ -73,9 +71,8 @@ stages:
                   targetType: 'inline'
                   script: |
                     echo "Starting deployment script run"
-                    # Suponiendo que aquí debería ir el .jar creado
-                    # Reemplaza con el comando correcto para ejecutar tu aplicación
-                    sudo java -jar $(Pipeline.Workspace)/WebApp/target/*.jar
+                    # Reemplaza con el comando correcto para ejecutar tu aplicación Node.js
+                    sudo node $(Pipeline.Workspace)/WebApp/app.js
             routeTraffic:
               steps:
               - script: echo routing traffic
