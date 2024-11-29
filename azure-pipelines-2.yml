@@ -54,9 +54,13 @@ stages:
                   inputs:
                     targetType: 'inline'
                     script: |
-                      # Modify deployment script based on the app type
-                      echo "Starting deployment script run"
-                      sudo java -jar '$(Pipeline.Workspace)/WebApp/**/target/*.jar'
+                      # Extraer el contenido del archivo .zip
+                      unzip $(Pipeline.Workspace)/WebApp/*.zip -d $(Pipeline.Workspace)/WebApp
+
+                      # Navegar al directorio de la aplicación y ejecutar el servidor
+                      cd $(Pipeline.Workspace)/WebApp
+                      npm install
+                      node server.js
             routeTraffic:
               steps:
                 - script: echo routing traffic
@@ -70,3 +74,4 @@ stages:
               success:
                 steps:
                   - script: echo Notify! This is on success
+
