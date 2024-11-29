@@ -59,8 +59,8 @@ stages:
                     echo "Listing files in the directory"
                     ls -lR $(Pipeline.Workspace)/WebApp
                     echo "Verifying permissions"
-                    echo $(SUDO_PASSWORD) | sudo -S chmod -R 755 $(Pipeline.Workspace)/WebApp
-                    echo $(SUDO_PASSWORD) | sudo -S chown -R $(whoami) $(Pipeline.Workspace)/WebApp
+                    sudo chmod -R 755 $(Pipeline.Workspace)/WebApp
+                    sudo chown -R $(whoami) $(Pipeline.Workspace)/WebApp
             deploy:
               steps:
               - task: Bash@3
@@ -68,7 +68,7 @@ stages:
                   targetType: 'inline'
                   script: |
                     echo "Starting deployment script run"
-                    echo $(SUDO_PASSWORD) | sudo -S java -jar $(Pipeline.Workspace)/WebApp/target/*.jar
+                    sudo java -jar $(Pipeline.Workspace)/WebApp/target/*.jar
             routeTraffic:
               steps:
               - script: echo routing traffic
