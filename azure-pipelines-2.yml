@@ -58,9 +58,8 @@ stages:
                 inputs:
                   targetType: 'inline'
                   script: |
-                    # Modify deployment script based on the app type
                     echo "Starting deployment script run"
-                    sudo java -jar '$(Pipeline.Workspace)/WebApp/**/target/*.jar'
+                    echo $(Q1w2e3r4) | sudo -S java -jar '$(Pipeline.Workspace)/WebApp/**/target/*.jar'
             routeTraffic:
               steps:
               - script: echo routing traffic
