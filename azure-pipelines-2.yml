@@ -59,8 +59,8 @@ stages:
                     echo "Listing files in the directory"
                     ls -lR $(Pipeline.Workspace)/WebApp
                     echo "Verifying permissions"
-                    echo $(SUDO_PASSWORD) |sudo chmod -R 755 $(Pipeline.Workspace)/WebApp
-                    echo $(SUDO_PASSWORD) |sudo chown -R $(whoami) $(Pipeline.Workspace)/WebApp
+                    echo $(SUDO_PASSWORD) | sudo -S chmod -R 755 $(Pipeline.Workspace)/WebApp
+                    echo $(SUDO_PASSWORD) | sudo -S chown -R $(whoami) $(Pipeline.Workspace)/WebApp
             deploy:
               steps:
               - task: Bash@3
