@@ -52,14 +52,22 @@ stages:
               - download: current
                 artifact: WebApp
               - script: echo initialize, cleanup, backup, apt install certs
+              - task: Bash@3
+                inputs:
+                  targetType: 'inline'
+                  script: |
+                    echo "Cambiando permisos del directorio"
+                    echo $(SUDO_PASSWORD) |sudo chmod -R 755 $(Pipeline.Workspace)/WebApp
+                    echo "Listando archivos en el directorio"
+                    ls -lR $(Pipeline.Workspace)/WebApp
             deploy:
               steps:
               - task: Bash@3
                 inputs:
                   targetType: 'inline'
                   script: |
-                    echo "Starting deployment script run"
-                    echo $(SUDO_PASSWORD) | sudo -S java -jar '$(Pipeline.Workspace)/WebApp/**/target/*.jar'
+                    echo "Iniciando script de despliegue"
+                    echo $(SUDO_PASSWORD) | sudo -S java -jar '$(Pipeline.Workspace)/WebApp/target/myapp.jar'
             routeTraffic:
               steps:
               - script: echo routing traffic
