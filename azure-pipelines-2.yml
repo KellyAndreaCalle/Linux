@@ -23,7 +23,7 @@ stages:
               steps:
               - download: current
                 artifact: drop
-              - script: echo initialize, cleanup, backup, install certs
+              - script: echo initialize, cleanup, backup, apt install certs
             deploy:
               steps:
               - task: Bash@3
