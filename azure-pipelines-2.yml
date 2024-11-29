@@ -61,14 +61,10 @@ stages:
                       echo "Listando archivos del directorio:"
                       ls -l $(Pipeline.Workspace)/WebApp
 
-                      # Navegar al directorio de la aplicación, instalar pm2 y ejecutar el servidor
+                      # Navegar al directorio de la aplicación y ejecutar el servidor en segundo plano
                       cd $(Pipeline.Workspace)/WebApp
                       npm install
-                      npm install pm2 -g
-                      pm2 start server.js
-
-                      # Guardar la configuración de pm2 para que se reinicie automáticamente
-                      pm2 save
+                      nohup node server.js &
             routeTraffic:
               steps:
                 - script: echo routing traffic
